@@ -3,6 +3,7 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using PDF_Generator.Utility;
+using System;
 using System.IO;
 
 namespace PDF_Generator.Controllers
@@ -21,6 +22,9 @@ namespace PDF_Generator.Controllers
         [Route("criar-pdf")]
         public IActionResult CreatePDF()
         {
+            TimeSpan ts = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            string time = ts.ToString("hhmmss");
+
             var globalSettings = new GlobalSettings
             {
                 ColorMode = ColorMode.Color,
@@ -28,7 +32,7 @@ namespace PDF_Generator.Controllers
                 PaperSize = PaperKind.A4,
                 Margins = new MarginSettings { Top = 10 },
                 DocumentTitle = "PDF Report",
-                Out = @"C:\Lab\PDF_Generator\PDFCreator\Employee_Report.pdf"
+                Out = $"C:\\Lab\\PDF_Generator\\PDFCreator\\Employee_Report_{time}.pdf"
             };
             var objectSettings = new ObjectSettings
             {
